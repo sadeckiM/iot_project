@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include "../lib/Manager/src/DiodeManager.hh"
 #include "../lib/Manager/src/SensorManager.hh"
+#include "../lib/Manager/src/ServerManager.hh"
 const uint8_t LED = 2;
 DiodeManager diode;
 SensorManager sensor;
+ServerManager server;
 
 void setup() {
     Serial.begin(115200);
@@ -18,9 +20,10 @@ void setup() {
 }
 
 void loop() {
+    server.startAP();
     Serial.println(sensor.measure().c_str());
-    diode.setOn();
-    delay(500);
-    diode.setOff();
-    delay(500);
+
+    while(server.loopAP()) {
+        yield();
+    }
 }
