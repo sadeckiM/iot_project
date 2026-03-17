@@ -16,6 +16,6 @@ public:
 private:
     WebServer _server;
 
-    const char* _ap_ssid = "esp32";
+    const char* _ap_ssid = "esp32_best";
     const char* _ap_password = "supersecret";
 };

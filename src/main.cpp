@@ -22,7 +22,7 @@ void setup() {
 void loop() {
     server.startAP();
     Serial.println(sensor.measure().c_str());
-
+    Serial.println(server.getIP());
     while(server.loopAP()) {
         yield();
     }
