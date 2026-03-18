@@ -13,7 +13,6 @@ void ServerManager::startAP() {
 
 void ServerManager::stopAP() {
     _server.stop();
-
     WiFi.softAPdisconnect(true);
 }
 

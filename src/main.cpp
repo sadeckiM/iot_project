@@ -1,7 +1,8 @@
 #include <Arduino.h>
-#include "../lib/Manager/src/DiodeManager.hh"
-#include "../lib/Manager/src/SensorManager.hh"
-#include "../lib/Manager/src/ServerManager.hh"
+#include "DiodeManager.hh"
+#include "SensorManager.hh"
+#include "ServerManager.hh"
+
 const uint8_t LED = 2;
 DiodeManager diode;
 SensorManager sensor;
