@@ -8,6 +8,13 @@ void ServerManager::startAP() {
     _server.on("/", [this]() {
         _server.send(200, "text/html", CONFIG_PAGE);
     });
+
+  _server.on("/save", HTTP_POST, [this]() {
+    _sta_ssid = _server.arg("ssid").c_str();
+    _sta_password = _server.arg("password").c_str();
+
+    _server.send(200, "text/plain", "Credentials received");
+  });
     _server.begin();
 }
 
