@@ -22,9 +22,16 @@ void setup() {
 
 void loop() {
     server.startAP();
-    Serial.println(sensor.measure().c_str());
+    // Serial.println(sensor.measure().c_str());
     Serial.println(server.getIP());
     while(server.loopAP()) {
+      Serial.println("Jestem tu");
         yield();
     }
+  server.stopAP();
+  server.startSTA();
+
+  while (true) {
+    server.loopRestSTA();
+  }
 }

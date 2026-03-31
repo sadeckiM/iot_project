@@ -25,10 +25,31 @@ void ServerManager::stopAP() {
 
 bool ServerManager::loopAP() {
     _server.handleClient();
-    return true;
+    return _sta_ssid.empty();
 }
 
 IPAddress ServerManager::getIP() const {
     return WiFi.softAPIP();
 }
 
+void ServerManager::startSTA() {
+  WiFi.mode(WIFI_STA);
+
+  WiFi.begin(_sta_ssid.c_str(), _sta_password.c_str());
+
+  delay(10000);
+
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Connection failed (STA). Rebooting...");
+
+    delay(5000);
+
+    ESP.restart();
+  }
+}
+
+void ServerManager::loopRestSTA() {
+  delay(1000);
+
+  Serial.println("Payload");
+}
