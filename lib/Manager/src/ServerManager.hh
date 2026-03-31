@@ -13,12 +13,24 @@ public:
   
   void startSTA();
   void loopRestSTA();
+
+
+  void setDataProvider(std::function<std::string()> measure);
+
 private:
     WebServer _server;
     const char* _ap_ssid = "esp32_best";
     const char* _ap_password = "supersecret";
-  std::string _sta_ssid = "";
-  std::string _sta_password = "";
+
+
+  std::string _sta_ssid = "IoT";
+  std::string _sta_password = "supersecret";
+
+  // std::string _sta_ssid = "";
+  // std::string _sta_password = "";
+
+
+  std::function<std::string()> _measure;
 };
 
 

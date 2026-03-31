@@ -51,5 +51,10 @@ void ServerManager::startSTA() {
 void ServerManager::loopRestSTA() {
   delay(1000);
 
-  Serial.println("Payload");
+  std::string data = _measure();
+  Serial.println(data.c_str());
+}
+
+void ServerManager::setDataProvider(std::function<std::string()> measure) {
+  _measure = measure;
 }

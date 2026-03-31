@@ -18,6 +18,10 @@ void setup() {
     }
 
     delay(1000);
+
+    server.setDataProvider([]() -> std::string {
+      return sensor.measure();
+    });
 }
 
 void loop() {
@@ -25,7 +29,7 @@ void loop() {
     // Serial.println(sensor.measure().c_str());
     Serial.println(server.getIP());
     while(server.loopAP()) {
-      Serial.println("Jestem tu");
+      //Serial.println("Jestem tu");
         yield();
     }
   server.stopAP();
