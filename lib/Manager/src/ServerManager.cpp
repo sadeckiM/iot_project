@@ -64,7 +64,7 @@ void ServerManager::setDataProvider(std::function<std::string()> measure) {
 }
 
 std::string ServerManager::parseDataToJson(const std::string& payload) {
-  return "{\"device\": \"d_123\", \"sensor\": \"random\", \"payload\": \"" + payload + "\"}";
+  return "{\"device\": \"********\", \"sensor\": \"random\", \"payload\": \"" + payload + "\"}";
 }
 
 void ServerManager::sendPostRequest(const std::string& body) {
