@@ -2,6 +2,7 @@
 #include "IPAddress.h"
 #include <WiFi.h> 
 #include "webpage/MainPageAP.hh"
+#include <HTTPClient.h>
 
 void ServerManager::startAP() {
     WiFi.softAP(_ap_ssid, _ap_password);
@@ -53,8 +54,32 @@ void ServerManager::loopRestSTA() {
 
   std::string data = _measure();
   Serial.println(data.c_str());
+
+  Serial.println(data.c_str());
+  sendPostRequest(parseDataToJson(data));
 }
 
 void ServerManager::setDataProvider(std::function<std::string()> measure) {
   _measure = measure;
+}
+
+std::string ServerManager::parseDataToJson(const std::string& payload) {
+  return "{\"device\": \"d_123\", \"sensor\": \"random\", \"payload\": \"" + payload + "\"}";
+}
+
+void ServerManager::sendPostRequest(const std::string& body) {
+  HTTPClient http;
+
+  http.begin(_url_rest);
+  http.addHeader("Content-Type", "application/json");
+
+  int code = http.POST(body.c_str());
+
+  if(code == 200) {
+    Serial.println(http.getString());
+  } else {
+    Serial.println(code);
+  }
+
+  http.end();
 }
