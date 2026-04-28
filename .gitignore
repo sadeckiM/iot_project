@@ -5,6 +5,9 @@
 # Prerequisites
 *.d
 
+.vscode/
+.clangd
+
 # Object files
 *.o
 *.ko
