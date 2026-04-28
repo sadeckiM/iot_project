@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addMeasurementData, getMeasurementData } from "../database/mock.connector";
+import { addMeasurementData, getMeasurementData } from "../database/mock.connector.js";
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.post("/data", async (req, res) => {
     // console.log({ ...req.query }),
     // console.log({ ...req.body })
 
-    const data = await getMeasurementData();
+    const data = await addMeasurementData(req.body);
 
     res.status(200).json({ status: "ok"})
 });
