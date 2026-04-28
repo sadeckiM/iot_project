@@ -12,9 +12,15 @@ CompileFlags:
     - "-isystem"
     - "/home/cardaver/.platformio/packages/toolchain-xtensa-esp32/lib/gcc/xtensa-esp32-elf/8.4.0/include-fixed"
     - "-D__GLIBC_USE(x)=0"
+    - "--target=xtensa-esp32-elf"
   Remove:
     - -fstrict-volatile-bitfields
     - -fno-tree-switch-conversion
     - -fno-section-anchors
     - -mlongcalls
     - -mfix-esp32-psram-cache-issue
+    - -isystem
+    - /usr/include
+    - /usr/local/include
+    - -mfix-esp32-psram-cache-strategy=memw
+    - -mdisable-hardware-atomics
