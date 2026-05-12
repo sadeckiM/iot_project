@@ -23,8 +23,8 @@ private:
     const char* _ap_password = "supersecret";
 
 
-  std::string _sta_ssid = "IoT";
-  std::string _sta_password = "supersecret";
+  std::string _sta_ssid = "Lab104IoT";
+  std::string _sta_password = "SuperTrudneHaslo1";
 
   // std::string _sta_ssid = "";
   // std::string _sta_password = "";
@@ -35,7 +35,7 @@ private:
   std::string parseDataToJson(const std::string& data);
   void sendPostRequest(const std::string& body);
 
-  const char* _url_rest = "http://10.237.211.124:3000/api/v1/iot/data";
+  const char* _url_rest = "http://156.17.45.171:3000/api/v1/iot/data";
 };
 
 
