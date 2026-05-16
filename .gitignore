@@ -249,5 +249,6 @@ dist
 .clang_complete
 .gcc-flags.json
 .pio
+compile_commands.json
 
 # End of https://www.toptal.com/developers/gitignore/api/platformio,c,c++,node,java
