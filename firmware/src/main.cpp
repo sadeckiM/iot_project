@@ -33,7 +33,7 @@ void loop() {
   int32_t samples = mic.read_raw_data_to_buffer();
   if (samples > 0) {
     String payload = mic.get_json_packet("esp32_ms_al");
-    server.publish_data("sensor/audio", payload);
+    server.publish_data("sensors/audio", payload);
   }
   delay(1000);
 }
