@@ -2,40 +2,38 @@
 #include "DiodeManager.hh"
 #include "SensorManager.hh"
 #include "ServerManager.hh"
+#include "microphone.hh"
 
-const uint8_t LED = 2;
 DiodeManager diode;
 SensorManager sensor;
 ServerManager server;
+Microphone mic(12, 13, 14);
 
 void setup() {
-    Serial.begin(115200);
-    Serial.println("ESP32 gotowe!");
-    diode.setup();
+  Serial.begin(SERIAL_BAUD);
+  Serial.println("ESP32 gotowe!");
+  diode.setup();
 
-    while(!Serial) {
-        delay(10);
-    }
+  // server.setDataProvider([]() -> std::string {
+  //   return sensor.measure();
+  // });
+  server.startAP();
+  Serial.println(server.getIP());
 
-    delay(1000);
-
-    server.setDataProvider([]() -> std::string {
-      return sensor.measure();
-    });
+  while (server.loopAP()) {
+    yield();
+  }
+  server.stopAP();
+  server.startSTA();
 }
 
 void loop() {
-    server.startAP();
-    // Serial.println(sensor.measure().c_str());
-    Serial.println(server.getIP());
-    while(server.loopAP()) {
-      //Serial.println("Jestem tu");
-        yield();
-    }
-  server.stopAP();
-  server.startSTA();
-
-  while (true) {
-    server.loopRestSTA();
+  // server.loopRestSTA();
+  server.loop_mqtt();
+  int32_t samples = mic.read_raw_data_to_buffer();
+  if (samples > 0) {
+    String payload = mic.get_json_packet("esp32_ms_al");
+    server.publish_data("sensor/audio", payload);
   }
+  delay(1000);
 }
